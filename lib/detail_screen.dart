@@ -126,10 +126,17 @@ class DetailMobilePage extends StatelessWidget {
   }
 }
 
-class DetailWebPage extends StatelessWidget {
+class DetailWebPage extends StatefulWidget {
   final TourismPlace place;
 
   const DetailWebPage({Key? key, required this.place}) : super(key: key);
+
+  @override
+  State<DetailWebPage> createState() => _DetailWebPageState();
+}
+
+class _DetailWebPageState extends State<DetailWebPage> {
+  final _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +156,7 @@ class DetailWebPage extends StatelessWidget {
                 child: Column(
                   children: [
                     ClipRRect(
-                        child: Image.asset(place.imageAsset),
+                        child: Image.asset(widget.place.imageAsset),
                         borderRadius: BorderRadius.circular(10)),
                     const SizedBox(height: 16),
                     Container(
@@ -157,12 +164,14 @@ class DetailWebPage extends StatelessWidget {
                         padding: const EdgeInsets.only(bottom: 16),
                         child: Scrollbar(
                           isAlwaysShown: true,
+                          controller: _scrollController,
                           child: Container(
                             height: 150,
                             padding: const EdgeInsets.only(bottom: 16),
                             child: ListView(
+                                controller: _scrollController,
                                 scrollDirection: Axis.horizontal,
-                                children: place.imageUrls.map((url) {
+                                children: widget.place.imageUrls.map((url) {
                                   return Padding(
                                       padding: const EdgeInsets.all(4),
                                       child: ClipRRect(
@@ -183,7 +192,7 @@ class DetailWebPage extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
-                      Text(place.name,
+                      Text(widget.place.name,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                               fontSize: 30, fontFamily: 'Staatliches')),
@@ -194,7 +203,8 @@ class DetailWebPage extends StatelessWidget {
                             children: <Widget>[
                               const Icon(Icons.calendar_today),
                               const SizedBox(width: 8),
-                              Text(place.openDays, style: informationTextStyle)
+                              Text(widget.place.openDays,
+                                  style: informationTextStyle)
                             ],
                           ),
                           const FavoriteButton(),
@@ -203,17 +213,18 @@ class DetailWebPage extends StatelessWidget {
                       Row(children: <Widget>[
                         const Icon(Icons.access_time),
                         const SizedBox(width: 8),
-                        Text(place.openTime, style: informationTextStyle)
+                        Text(widget.place.openTime, style: informationTextStyle)
                       ]),
                       const SizedBox(height: 8),
                       Row(children: <Widget>[
                         const Icon(Icons.monetization_on),
                         const SizedBox(width: 8),
-                        Text(place.ticketPrice, style: informationTextStyle)
+                        Text(widget.place.ticketPrice,
+                            style: informationTextStyle)
                       ]),
                       Container(
                           padding: const EdgeInsets.symmetric(vertical: 16),
-                          child: Text(place.description,
+                          child: Text(widget.place.description,
                               textAlign: TextAlign.justify,
                               style: const TextStyle(
                                   fontSize: 16, fontFamily: 'Oxygen')))
@@ -226,6 +237,12 @@ class DetailWebPage extends StatelessWidget {
         ),
       ),
     ));
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 }
 

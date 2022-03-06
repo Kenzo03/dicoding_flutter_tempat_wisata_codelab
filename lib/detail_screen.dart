@@ -8,11 +8,12 @@ class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(title: Text('Lembang Farm House')),
         body: SafeArea(
             child: SingleChildScrollView(
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <
+                  Widget>[
             Image.asset('images/farm-house.jpg'),
             Container(
                 margin: EdgeInsets.only(top: 16),
@@ -89,6 +90,6 @@ class DetailScreen extends StatelessWidget {
                       )),
                 ])),
           ]),
-    )));
+        )));
   }
 }

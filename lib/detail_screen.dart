@@ -15,7 +15,10 @@ class DetailScreen extends StatelessWidget {
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <
           Widget>[
         Stack(children: <Widget>[
-          Image.asset(place.imageAsset),
+          Hero(
+            tag: 'img',
+            child: Image.asset(place.imageAsset),
+          ),
           SafeArea(
             child: Padding(
                 padding: EdgeInsets.all(8),

@@ -8,13 +8,13 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: Text(
-                'Wisata Bandung. Size: ${MediaQuery.of(context).size.width}')),
+        appBar: AppBar(title: const Text('Wisata Bandung')),
         body: LayoutBuilder(
           builder: (context, constraints) {
             if (constraints.maxWidth <= 600) {
               return const TourismPlaceList();
+            } else if (constraints.maxWidth <= 800) {
+              return const TourismPlaceGrid(gridCount: 2);
             } else if (constraints.maxWidth <= 1200) {
               return const TourismPlaceGrid(gridCount: 4);
             } else {
@@ -32,39 +32,43 @@ class TourismPlaceGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(24),
-        child: GridView.count(
-            crossAxisCount: gridCount,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-            children: tourismPlaceList.map((place) {
-              return InkWell(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return DetailScreen(place: place);
-                    }));
-                  },
-                  child: Card(
-                      child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Expanded(
-                          child:
-                              Image.asset(place.imageAsset, fit: BoxFit.cover)),
-                      const SizedBox(height: 8),
-                      Padding(
-                          padding: const EdgeInsets.only(left: 8),
-                          child: Text(place.name,
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold))),
-                      Padding(
-                          padding: const EdgeInsets.only(left: 8, bottom: 8),
-                          child: Text(place.location))
-                    ],
-                  )));
-            }).toList()));
+    return Scrollbar(
+        isAlwaysShown: true,
+        child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: GridView.count(
+                crossAxisCount: gridCount,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
+                children: tourismPlaceList.map((place) {
+                  return InkWell(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return DetailScreen(place: place);
+                        }));
+                      },
+                      child: Card(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Expanded(
+                              child: Image.asset(place.imageAsset,
+                                  fit: BoxFit.cover)),
+                          const SizedBox(height: 8),
+                          Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: Text(place.name,
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold))),
+                          Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 8, bottom: 8),
+                              child: Text(place.location))
+                        ],
+                      )));
+                }).toList())));
   }
 }
 

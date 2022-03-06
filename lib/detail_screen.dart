@@ -37,7 +37,7 @@ class DetailMobilePage extends StatelessWidget {
             Stack(children: <Widget>[
               Hero(
                 tag: 'img',
-                child: Image.asset(place.imageAsset),
+                child: Image.asset(place.imageAsset, fit: BoxFit.cover),
               ),
               SafeArea(
                 child: Padding(
@@ -144,12 +144,23 @@ class _DetailWebPageState extends State<DetailWebPage> {
         body: Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 64),
       child: Center(
-        child: Container(
+        child: SizedBox(
           width: 1200,
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text('Wisata Bandung',
-                style: TextStyle(fontFamily: 'Staatliches', fontSize: 32)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Wisata Bandung',
+                    style: TextStyle(fontFamily: 'Staatliches', fontSize: 32)),
+                TextButton(
+                  child: const Text('Back'),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            ),
             const SizedBox(height: 32),
             Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Expanded(

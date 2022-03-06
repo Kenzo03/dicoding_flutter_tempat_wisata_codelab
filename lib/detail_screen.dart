@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+var informationTextStyle = TextStyle(fontFamily: 'Oxygen');
+
 class DetailScreen extends StatelessWidget {
   const DetailScreen({Key? key}) : super(key: key);
 
@@ -16,8 +18,7 @@ class DetailScreen extends StatelessWidget {
                 margin: EdgeInsets.only(top: 16),
                 child: Text('Farm House Lembang',
                     textAlign: TextAlign.center,
-                    style:
-                        TextStyle(fontSize: 30, fontWeight: FontWeight.bold))),
+                    style: TextStyle(fontSize: 30, fontFamily: 'Staatliches'))),
             Container(
                 margin: EdgeInsets.symmetric(vertical: 16),
                 child: Row(
@@ -27,21 +28,30 @@ class DetailScreen extends StatelessWidget {
                         children: [
                           Icon(Icons.calendar_today),
                           SizedBox(height: 8),
-                          Text('Open Everyday')
+                          Text(
+                            'Open Everyday',
+                            style: informationTextStyle,
+                          )
                         ],
                       ),
                       Column(
                         children: [
                           Icon(Icons.access_time),
                           SizedBox(height: 8),
-                          Text('09:00 - 20:00')
+                          Text(
+                            '09:00 - 20:00',
+                            style: informationTextStyle,
+                          )
                         ],
                       ),
                       Column(
                         children: [
                           Icon(Icons.monetization_on),
                           SizedBox(height: 8),
-                          Text('RP 25.000')
+                          Text(
+                            'RP 25.000',
+                            style: informationTextStyle,
+                          )
                         ],
                       )
                     ])),

@@ -8,7 +8,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Wisata Bandung')),
+        appBar: AppBar(title: const Text('Wisata Bandung')),
         body: ListView.builder(
           itemCount: tourismPlaceList.length,
           itemBuilder: (context, index) {
@@ -38,8 +38,8 @@ class MainScreen extends StatelessWidget {
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   Text(place.name,
-                                      style: TextStyle(fontSize: 16)),
-                                  SizedBox(height: 10),
+                                      style: const TextStyle(fontSize: 16)),
+                                  const SizedBox(height: 10),
                                   Text(place.location)
                                 ],
                               ))),

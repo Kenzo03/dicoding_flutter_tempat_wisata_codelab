@@ -1,7 +1,7 @@
 import 'package:codelab1_tempat_wisata/model/tourism_place.dart';
 import 'package:flutter/material.dart';
 
-var informationTextStyle = TextStyle(fontFamily: 'Oxygen');
+var informationTextStyle = const TextStyle(fontFamily: 'Oxygen');
 
 class DetailScreen extends StatelessWidget {
   final TourismPlace place;
@@ -12,92 +12,97 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
-      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <
-          Widget>[
-        Stack(children: <Widget>[
-          Hero(
-            tag: 'img',
-            child: Image.asset(place.imageAsset),
-          ),
-          SafeArea(
-            child: Padding(
-                padding: EdgeInsets.all(8),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Stack(children: <Widget>[
+              Hero(
+                tag: 'img',
+                child: Image.asset(place.imageAsset),
+              ),
+              SafeArea(
+                child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: Colors.grey,
+                            child: IconButton(
+                                icon: const Icon(Icons.arrow_back,
+                                    color: Colors.white),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                }),
+                          ),
+                          const FavoriteButton()
+                        ])),
+              )
+            ]),
+            Container(
+                margin: const EdgeInsets.only(top: 16),
+                child: Text(place.name,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontSize: 30, fontFamily: 'Staatliches'))),
+            Container(
+                margin: const EdgeInsets.symmetric(vertical: 16),
                 child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.grey,
-                        child: IconButton(
-                            icon: Icon(Icons.arrow_back, color: Colors.white),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            }),
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Column(
+                        children: [
+                          const Icon(Icons.calendar_today),
+                          const SizedBox(height: 8),
+                          Text(
+                            place.openDays,
+                            style: informationTextStyle,
+                          )
+                        ],
                       ),
-                      FavoriteButton()
+                      Column(
+                        children: [
+                          const Icon(Icons.access_time),
+                          const SizedBox(height: 8),
+                          Text(
+                            place.openTime,
+                            style: informationTextStyle,
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          const Icon(Icons.monetization_on),
+                          const SizedBox(height: 8),
+                          Text(
+                            place.ticketPrice,
+                            style: informationTextStyle,
+                          )
+                        ],
+                      )
                     ])),
-          )
-        ]),
-        Container(
-            margin: EdgeInsets.only(top: 16),
-            child: Text(place.name,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 30, fontFamily: 'Staatliches'))),
-        Container(
-            margin: EdgeInsets.symmetric(vertical: 16),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Column(
-                    children: [
-                      Icon(Icons.calendar_today),
-                      SizedBox(height: 8),
-                      Text(
-                        place.openDays,
-                        style: informationTextStyle,
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Icon(Icons.access_time),
-                      SizedBox(height: 8),
-                      Text(
-                        place.openTime,
-                        style: informationTextStyle,
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Icon(Icons.monetization_on),
-                      SizedBox(height: 8),
-                      Text(
-                        place.ticketPrice,
-                        style: informationTextStyle,
-                      )
-                    ],
-                  )
-                ])),
-        Container(
-            padding: EdgeInsets.all(16),
-            child: Text(place.description,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 16, fontFamily: 'Oxygen'))),
-        Container(
-          height: 150,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: place.imageUrls.map((url) {
-              return Padding(
-                  padding: const EdgeInsets.all(4),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(url),
-                  ));
-            }).toList(),
-          ),
-        ),
-      ]),
+            Container(
+                padding: const EdgeInsets.all(16),
+                child: Text(place.description,
+                    textAlign: TextAlign.center,
+                    style:
+                        const TextStyle(fontSize: 16, fontFamily: 'Oxygen'))),
+            // ignore: sized_box_for_whitespace
+            Container(
+              height: 150,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: place.imageUrls.map((url) {
+                  return Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.network(url),
+                      ));
+                }).toList(),
+              ),
+            ),
+          ]),
     ));
   }
 }
